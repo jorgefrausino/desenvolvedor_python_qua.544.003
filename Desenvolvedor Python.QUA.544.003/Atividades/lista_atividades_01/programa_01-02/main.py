@@ -11,57 +11,57 @@ O usuário íra escolher a sala onde o filme desejado está passando. Caso o usu
 """
 import datetime
 
-# Define movie data
-movies = [
-    {"name": "A Volta dos Que Não Foram", "age": 0},
-    {"name": "A Roda Quadrada", "age": 12},
-    {"name": "As Trnças do Rei Careca", "age": 14},
-    {"name": "Poeira em Alto Mar", "age": 16},
-    {"name": "A Vingança do frango Assado", "age": 18}
+# Definir dados dos filmes
+filmes = [
+    {"nome": "A Volta dos Que Não Foram", "idade": 0},
+    {"nome": "A Roda Quadrada", "idade": 12},
+    {"nome": "As Trnças do Rei Careca", "idade": 14},
+    {"nome": "Poeira em Alto Mar", "idade": 16},
+    {"nome": "A Vingança do frango Assado", "idade": 18}
 ]
 
-def get_user_input():
-    name = input("Digite seu nome: ")
-    age = int(input("Digite sua idade: "))
-    return name, age
+def obter_entrada_usuario():
+    nome = input("Digite seu nome: ")
+    idade = int(input("Digite sua idade: "))
+    return nome, idade
 
-def show_movies(age):
+def mostrar_filmes(idade):
     print("\nFilmes em cartaz:")
-    for i, movie in enumerate(movies):
-        if age >= movie["age"]:
-            print(f"{i+1}. {movie['name']} ({movie['age']} anos)")
+    for i, filme in enumerate(filmes):
+        if idade >= filme["idade"]:
+            print(f"{i+1}. {filme['nome']} ({filme['idade']} anos)")
         else:
-            print(f"{i+1}. {movie['name']} (idade mínima: {movie['age']} anos)")
+            print(f"{i+1}. {filme['nome']} (idade mínima: {filme['idade']} anos)")
 
-def choose_movie():
-    choice = int(input("\nEscolha o número do filme desejado: ")) - 1
-    return movies[choice] if 0 <= choice < len(movies) else None
+def escolher_filme():
+    escolha = int(input("\nEscolha o número do filme desejado: ")) - 1
+    return filmes[escolha] if 0 <= escolha < len(filmes) else None
 
-def write_ticket(movie, name, age):
-    filename = f"bilhete_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.txt"
-    with open(filename, 'w') as file:
-        file.write(f"Nome: {name}\n")
-        file.write(f"Idade: {age}\n")
-        file.write(f"Filme: {movie['name']}\n")
-        file.write(f"Data: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
-    print(f"Bilhete gravado em {filename}")
+def escrever_bilhete(filme, nome, idade):
+    nome_arquivo = f"bilhete_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.txt"
+    with open(nome_arquivo, 'w') as arquivo:
+        arquivo.write(f"Nome: {nome}\n")
+        arquivo.write(f"Idade: {idade}\n")
+        arquivo.write(f"Filme: {filme['nome']}\n")
+        arquivo.write(f"Data: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
+    print(f"Bilhete gravado em {nome_arquivo}")
 
 def main():
-    name, age = get_user_input()
+    nome, idade = obter_entrada_usuario()
     
     while True:
-        show_movies(age)
-        movie = choose_movie()
+        mostrar_filmes(idade)
+        filme = escolher_filme()
         
-        if movie is None:
+        if filme is None:
             print("Opção inválida!")
             continue
             
-        if age >= movie["age"]:
-            write_ticket(movie, name, age)
+        if idade >= filme["idade"]:
+            escrever_bilhete(filme, nome, idade)
             break
         else:
-            print(f"Você não tem idade suficiente para assistir ao filme {movie['name']}!")
+            print(f"Você não tem idade suficiente para assistir ao filme {filme['nome']}!")
 
 if __name__ == "__main__":
     main()
