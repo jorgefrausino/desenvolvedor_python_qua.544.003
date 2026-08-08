@@ -36,11 +36,35 @@ while True:
                 print(f"{'-'*40}")
             continue
         case"3":
-            # TODO: fazer alterar usuário
-            pass
+            nome = input("Informe o nome a ser pesquisado: ").strip().title()
+            for usuario in usuarios:
+                if nome in usuario['nome']:
+                    # 2º menu
+                    print("nome")
+                    print("cpf")
+                    print("email")
+                    print("Cancelar")
+                    alterar = input("Qual chave deseja alterar? ").strip().lower()
+                    if alterar in usuario:
+                        usuario[alterar] = input("Informe o novo valor: ").strip()
+                        print("Alterado com sucesso.")
+            else:
+                # REVIEW: mensagem bugada
+                print("Usuário não encontrado.")
+            continue
         case"4":
-            pass
+            nome = input("Informe o nome a ser deletado: ").strip().title()
+            for usuario in usuarios:
+                # FIXME: corrigir bloco abaixo
+                if nome in usuario['nome']:
+                    usuarios.remove(usuarios)
+                    print("Usuário deletado com sucesso!")
+                else:
+                     # REVIEW: mensagem bugada
+                    print("Usuário não encontrado.")
+            continue
         case"5":
-            pass
+            break
         case _:
-            pass
+            print("Opção inválida.")
+            continue
