@@ -1,3 +1,37 @@
+import os
+import json
+
+alunos = []
+
+os.system("cls" if os.name == "nt" else "clear")
+
+while True:
+    print("1 - Informa dados")
+    print("2 - Sair do programa")
+    opcao = input("Informe a opção: ").strip()
+    os.system("cls" if os.name == "nt" else "clear")
+    match opcao:
+        case "1":
+            aluno = []
+            notas = [0,0,0]
+
+            aluno['nome1'] = input("Informe o nome do aluno: ").strip().title()
+            for i in range(len(notas)):
+                notas[i] = float(input(f"Informe a {i+1}ª nota:").repalce(",","."))
+                aluno['notas'] = notas
+                aluno['média'] = sum(notas)/len(notas)
+                aluno['resultado'] = "aprovado" if aluno['média'] >=7 else "reprovado"
+                alunos.append(aluno)
+                with open("atividade_03/arquivo.json","w",encoding="utf-8") as f:
+                    json.dump(alunos, f)
+                    print("Dados do aluno gravados com sucesso!")
+                    continue
+        case "2":
+            pass
+        case _:
+            print("Opção inválida.")
+            continue
+
 # TODO: atividade 03
 # Crie um programa que receba o nome de um aluno e 3 notas.
 # O programa deve calcular a média do aluno e informar se
@@ -6,33 +40,3 @@
 # Ao final, o usuário deverá escolher se deseja inserir as
 # notas de outro aluno, que deverão ser gravadas no mesmo
 # arquivo JSON.
-
-import json
-import os
-
-alunos = []
-abrir = ""
-
-os.system("cls" if os.name == "nt" else "clear")
-
-while True:
-
-    print(f"{'-'*20} CADASTRO DE ALUNOS {'-'*20}")
-    print("1 - Cadastrar aluno")
-    print("2 - Cadastrar outro aluno")
-    print("3 - Consultar alunos")
-    print("4 - Sair")
-
-    opcao = input("Informe a opção desejada: ").strip()
-
-    os.system("cls" if os.name == "nt" else "clear")
-
-    if opcao == "1" or opcao == "2":
-
-        aluno = {}
-
-        aluno['nome'] = input("Informe o nome do aluno: ").strip().title()
-        aluno['nota1'] = float(input("Informe a primeira nota: "))
-        aluno['nota2'] = float(input("Informe a segunda nota: "))
-        aluno['nota3'] = float(input("Informe a terceira nota: "))
-
